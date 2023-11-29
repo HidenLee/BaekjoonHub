@@ -12,6 +12,7 @@
 | 문제번호 | 링크 |
 | ----- | ----- |
 |1008. A／B|[링크](./%EB%B0%B1%EC%A4%80/Bronze/1008.%E2%80%85A%EF%BC%8FB/A%EF%BC%8FB.py)|
+|1009. 분산처리|[링크](./%EB%B0%B1%EC%A4%80/Bronze/1009.%E2%80%85%EB%B6%84%EC%82%B0%EC%B2%98%EB%A6%AC/README.md)|
 |10998. A×B|[링크](./%EB%B0%B1%EC%A4%80/Bronze/10998.%E2%80%85A%C3%97B/README.md)|
 ### 🚀 Gold
 | 문제번호 | 링크 |
