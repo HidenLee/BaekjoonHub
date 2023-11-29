@@ -22,8 +22,9 @@ jobs: # 실제 실행될 내용
     - name: Run script
       run: python ./notion/to_notion.py
       env:
-        NOTION_API_KEY: ${{ secret_IiZmqB0Yq7YMCmO9iSADeMakug6UdsXasjVxSNLS7ik }}
-        NOTION_DATABASE_ID: ${{ secrets.4202576b55e942a9ae1ab1ba99e8c153 }}
+      
+        NOTION_API_KEY: ${{ secret.NOTION_API_KEY }}
+        NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
     - name: Run update.py # 2) update.py 실행
       run: |
         python update.py
