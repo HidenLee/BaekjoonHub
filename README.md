@@ -7,6 +7,10 @@
 | 문제번호 | 링크 |
 | ----- | ----- |
 |0001-two-sum|[링크](./LeetCode/Easy/0001-two-sum/NOTES.md)|
+### 🚀 Medium
+| 문제번호 | 링크 |
+| ----- | ----- |
+|1514-path-with-maximum-probability|[링크](./LeetCode/Medium/1514-path-with-maximum-probability/NOTES.md)|
 ### 🚀 SWEA
 | 문제번호 | 링크 |
 | ----- | ----- |
