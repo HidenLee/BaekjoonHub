@@ -8,11 +8,10 @@ visited = [[False for _ in range(C)] for _ in range(R)]
 def backtracking(x,y,depth,cnt):
     visited[y][x] = True
     
-    if depth > K: return cnt
-
-    if y == 0 and x == C - 1 and depth == K :
-        return cnt + 1
-    
+    if depth == K :
+        if y == 0 and x == C - 1:
+            return cnt + 1
+        return cnt
     for dt in delta:
         nx = x + dt[0]
         ny = y + dt[1]
