@@ -19,12 +19,12 @@ jobs: # 실제 실행될 내용
         python -m pip install --upgrade pip
         pip install python-leetcode 
         pip install -r ./notion/requirements.txt
-    - name: Run script
-      run: python ./notion/to_notion.py
-      env:
+    # - name: Run script
+    #   run: python ./notion/to_notion.py
+    #   env:
       
-        NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-        NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+    #     NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+    #     NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
     - name: Run update.py # 2) update.py 실행
       run: |
         python update.py
