@@ -1,0 +1,5 @@
+N = int(input())
+ipt1 = map(int,input().split())
+T, P = map(int,input().split())
+print(sum([x//T if not x%T else (x//T)+1 if x else 0  for x in ipt1]))
+print(N//P, N%P)
