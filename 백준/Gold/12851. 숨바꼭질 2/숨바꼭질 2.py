@@ -20,5 +20,5 @@ while deq:
             dist[nxt] = dist[now]+1
             visit[nxt] += 1
             deq.append(nxt)
-print(dist[K])
+print(flag)
 print(visit[K])
