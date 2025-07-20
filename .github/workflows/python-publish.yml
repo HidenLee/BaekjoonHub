@@ -39,7 +39,7 @@ jobs: # 실제 실행될 내용
         git push
 
     - name: Notify Discord
-      if: alwasys()
+      if: always()
       run: |
         STATUS=${{ job.status }}
         curl -H "Content-Type: application/json" \
