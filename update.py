@@ -81,7 +81,7 @@ def main():
                 content += "|{}|[링크]({})|\n".format(category, parse.quote(os.path.join(root, file)))
                 solveds.append(category)
                 print("category : " + category)
-            if PROBLEM_TITLE and PROBLEM_TITLE == category:
+            if PROBLEM_TITLE and PROBLEM_TITLE in category:
                 send_discord_notification(PROBLEM_TITLE, os.path.join(root, file))
 
     with open("README.md", "w") as fd:
