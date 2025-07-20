@@ -12,10 +12,11 @@ HEADER = """#
 
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 PROBLEM_TITLE = os.environ.get("PROBLEM_TITLE")  # Set only if BaekjoonHub commit
-normalized_title = normalize(PROBLEM_TITLE) if PROBLEM_TITLE else ""
 
 def normalize(text):
     return re.sub(r'[\s._]', '', text)  # remove spaces, dots, underscores
+
+normalized_title = normalize(PROBLEM_TITLE) if PROBLEM_TITLE else ""
 
 def send_discord_notification(title, file_path):
     if not DISCORD_WEBHOOK_URL:
