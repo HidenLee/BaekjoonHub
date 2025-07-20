@@ -102,13 +102,11 @@ def main():
     # If BaekjoonHub title is set, find the newly added file and notify
     if PROBLEM_TITLE:
         added_files = get_newly_added_files()
-        flag = True
         for file in added_files:
             if file.endswith(('.py', '.cpp', '.js')) and '백준' in file:
                 send_discord_notification(PROBLEM_TITLE, file)
-                flag = False
                 break
-        if flag:
-            send_discord_notification("No_problem_Found","1")
+    else:
+        send_discord_notification("No_problem_Found","1")
 if __name__ == "__main__":
     main()
