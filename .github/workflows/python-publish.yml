@@ -25,9 +25,24 @@ jobs: # 실제 실행될 내용
       
     #     NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
     #     NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+    - name: Extract BaekjoonHub Title from Commit Message
+      id: extract-title
+      run: |
+        COMMIT_MSG=$(git log -1 --pretty=%B)
+        echo "Last commit message: $COMMIT_MSG"
+
+        if echo "$COMMIT_MSG" | grep -q "\-BaekjoonHub"; then
+          TITLE=$(echo "$COMMIT_MSG" | sed -nE 's/.*Title:\s*(.+?),\s*Time:.*/\1/p')
+          echo "PROBLEM_TITLE=$TITLE" >> $GITHUB_ENV
+          echo "Detected BaekjoonHub Title: $TITLE"
+        else
+          echo "No BaekjoonHub title found."
+        fi
     - name: Run update.py # 2) update.py 실행
       run: |
         python update.py
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     - name: Commit changes # 3) 추가된 파일 commit
       run: |
         git config --global user.name 'HidenLee' # 유저명
