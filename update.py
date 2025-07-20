@@ -12,6 +12,10 @@ HEADER = """#
 
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 PROBLEM_TITLE = os.environ.get("PROBLEM_TITLE")  # Set only if BaekjoonHub commit
+normalized_title = normalize(PROBLEM_TITLE) if PROBLEM_TITLE else ""
+
+def normalize(text):
+    return re.sub(r'[\s._]', '', text)  # remove spaces, dots, underscores
 
 def send_discord_notification(title, file_path):
     if not DISCORD_WEBHOOK_URL:
@@ -80,8 +84,9 @@ def main():
             if category not in solveds:
                 content += "|{}|[링크]({})|\n".format(category, parse.quote(os.path.join(root, file)))
                 solveds.append(category)
+                # print("category : " + category)
+            if PROBLEM_TITLE and normalize(category).endswith(normalized_title):
                 print("category : " + category)
-            if PROBLEM_TITLE and PROBLEM_TITLE in category:
                 send_discord_notification(PROBLEM_TITLE, os.path.join(root, file))
 
     with open("README.md", "w") as fd:
