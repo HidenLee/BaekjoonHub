@@ -43,6 +43,9 @@ jobs: # 실제 실행될 내용
         python update.py
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        PROBLEM_TITLE: ${{ env.PROBLEM_TITLE }}  # only set if commit matches BaekjoonHub
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_REF_NAME: ${{ github.ref_name }}
     - name: Commit changes # 3) 추가된 파일 commit
       run: |
         git config --global user.name 'HidenLee' # 유저명

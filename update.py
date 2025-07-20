@@ -13,47 +13,33 @@ HEADER = """#
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 PROBLEM_TITLE = os.environ.get("PROBLEM_TITLE")  # Set only if BaekjoonHub commit
 
-def get_newly_added_files():
-    try:
-        result = subprocess.check_output(
-            ['git', 'diff', '--name-only', 'HEAD~1', 'HEAD'],
-            universal_newlines=True
-        )
-        return [line.strip() for line in result.splitlines() if line.strip()]
-    except subprocess.CalledProcessError as e:
-        print("Error detecting new files:", e)
-        return []
-
 def send_discord_notification(title, file_path):
     if not DISCORD_WEBHOOK_URL:
         print("No Discord webhook URL found.")
         return
-    
-    print(f"[DISCORD] Sending title: {title}, file_path: {file_path}")
-    
-    # Try to extract problem ID from filename
-    base = os.path.basename(file_path)
-    problem_id = base.split('.')[0]
-    if problem_id.isdigit():
-        url = f"https://www.acmicpc.net/problem/{problem_id}"
-    else:
-        url = f"https://github.com/{os.environ.get('GITHUB_REPOSITORY')}/blob/{os.environ.get('GITHUB_SHA')}/{file_path}"
+
+    github_repo = os.environ.get("GITHUB_REPOSITORY")       # e.g., 'HidenLee/BaekjoonHub'
+    github_branch = os.environ.get("GITHUB_REF_NAME")       # e.g., 'main'
+    encoded_path = parse.quote(file_path)                   # handle Korean or spaces safely
+
+    github_url = f"https://github.com/{github_repo}/blob/{github_branch}/{encoded_path}"
 
     payload = {
         "username": "BaekjoonHub Bot",
         "embeds": [{
             "title": title,
-            "url": url,
-            "description": f"🆕 새로운 문제 풀이가 업로드되었습니다.",
+            "url": github_url,
+            "description": "📘 새로운 문제 풀이가 업로드되었습니다!",
             "type": "link"
         }]
     }
 
     try:
         response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
-        print("Discord response:", response.status_code)
+        print(f"✅ Discord notified with status {response.status_code}")
     except Exception as e:
-        print("Failed to send webhook:", e)
+        print("❌ Failed to send Discord webhook:", e)
+
 
 def main():
     content = ""
@@ -95,18 +81,11 @@ def main():
                 content += "|{}|[링크]({})|\n".format(category, parse.quote(os.path.join(root, file)))
                 solveds.append(category)
                 print("category : " + category)
+            if PROBLEM_TITLE and PROBLEM_TITLE in file:
+                send_discord_notification(PROBLEM_TITLE, os.path.join(root, file))
 
     with open("README.md", "w") as fd:
         fd.write(content)
 
-    # If BaekjoonHub title is set, find the newly added file and notify
-    if PROBLEM_TITLE:
-        added_files = get_newly_added_files()
-        for file in added_files:
-            if file.endswith(('.py', '.cpp', '.js')) and '백준' in file:
-                send_discord_notification(PROBLEM_TITLE, file)
-                break
-    else:
-        send_discord_notification("No_problem_Found","1")
 if __name__ == "__main__":
     main()
