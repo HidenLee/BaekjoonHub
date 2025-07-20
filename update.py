@@ -5,6 +5,7 @@ import subprocess
 import json
 import requests
 from urllib import parse
+import re
 
 HEADER = """# 
 # 백준 & 프로그래머스 & SWEA & LeetCode 문제 풀이 목록
