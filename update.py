@@ -31,11 +31,11 @@ def send_discord_notification(title, file_path):
     github_url = f"https://github.com/{github_repo}/blob/{github_branch}/{encoded_path}"
 
     payload = {
-        "username": "BaekjoonHub Bot",
+        "username": "HyundoLee",
         "embeds": [{
             "title": title,
             "url": github_url,
-            "description": "📘 새로운 문제 풀이가 업로드되었습니다!",
+            "description": f"'{PROBLEM_TITLE}' 문제 풀이가 업로드되었습니다!",
             "type": "link"
         }]
     }
@@ -87,9 +87,9 @@ def main():
                 content += "|{}|[링크]({})|\n".format(category, parse.quote(os.path.join(root, file)))
                 solveds.append(category)
                 # print("category : " + category)
-            if PROBLEM_TITLE and normalize(category).endswith(normalized_title):
-                print("category : " + category)
-                send_discord_notification(PROBLEM_TITLE, os.path.join(root, file))
+                if PROBLEM_TITLE and normalize(category).endswith(normalized_title):
+                    print("category : " + category)
+                    send_discord_notification(PROBLEM_TITLE, os.path.join(root, file))
 
     with open("README.md", "w") as fd:
         fd.write(content)

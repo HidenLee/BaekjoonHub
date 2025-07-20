@@ -55,12 +55,3 @@ jobs: # 실제 실행될 내용
     - name: Push changes # 4) 메인에 푸시
       run: |
         git push
-
-    - name: Notify Discord
-      if: always()
-      run: |
-        STATUS=${{ job.status }}
-        curl -H "Content-Type: application/json" \
-             -X POST \
-             -d "{\"content\": \"🚀 GitHub Action Workflow 완료: **${STATUS}** on \`${{ github.ref_name }}\` for \`${{ github.workflow }}\`\"}" \
-             ${{ secrets.DISCORD_WEBHOOK_URL }}
