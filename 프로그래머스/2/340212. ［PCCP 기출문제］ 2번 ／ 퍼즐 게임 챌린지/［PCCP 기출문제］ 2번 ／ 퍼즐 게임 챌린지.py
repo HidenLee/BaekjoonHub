@@ -1,5 +1,5 @@
 def solution(diffs, times, limit):
-    high = max(diffs)
+    high = 10e5
     low = 1
     while low < high:
         mid = (high+low) // 2
